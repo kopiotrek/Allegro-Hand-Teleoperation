@@ -20,6 +20,12 @@ RING_IK_MARKER_TOPIC = '/ik_marker/ring'
 
 class AllegroKDL(object):
     def __init__(self):
+        self.node_name = "allegro_kdl"
+        try:
+            rospy.init_node(self.node_name)
+        except rospy.ROSException as e:
+            rospy.loginfo(f'Node initialization failed: {self.node_name}')
+            pass
         # Getting the URDF path
         urdf_path = get_path_in_package("robot/assets/allegro_hand_right.urdf")
         # urdf_path = get_path_in_package("robot/assets/allegro_hand_right.urdf")
@@ -52,12 +58,12 @@ class AllegroKDL(object):
     def finger_forward_kinematics(self, finger_type, input_angles):
         # Checking if the number of angles is equal to 4
         if len(input_angles) != self.hand_configs['joints_per_finger']:
-            rospy.loginfo('Incorrect number of angles')
+            rospy.loginfo(f'{self.node_name}: Incorrect number of angles')
             return 
 
         # Checking if the input finger type is a valid one
         if finger_type not in self.hand_configs['fingers'].keys():
-            rospy.loginfo('Finger type does not exist')
+            rospy.loginfo(f'{self.node_name}: Finger type does not exist')
             return
         
         # Clipping the input angles based on the finger type
@@ -102,7 +108,7 @@ class AllegroKDL(object):
     def finger_inverse_kinematics(self, finger_type, input_position, curr_finger_angles):
         # Checking if the input figner type is a valid one
         if finger_type not in self.hand_configs['fingers'].keys():
-            rospy.loginfo('Finger type does not exist')
+            rospy.loginfo(f'{self.node_name}: Finger type does not exist')
             return
 
         if finger_type == 'thumb':

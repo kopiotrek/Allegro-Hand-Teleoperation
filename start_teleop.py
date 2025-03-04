@@ -6,14 +6,14 @@ import psutil
 import time 
 
 # Paths
-SCRIPTS_DIR = os.path.expanduser("~/RPL/DIME-IK-TeleOp/ik_teleop/")
+SCRIPTS_DIR = os.path.expanduser("~/RPL/Allegro-Hand-Teleoperation/ik_teleop/")
 ALLEGRO_HAND_DIR = os.path.expanduser("~/RPL/DIME-Controllers/")
-ACTIVATE_ENV = "source /home/piotr/RPL/DIME-IK-TeleOp/ik_teleop/env_teleop/bin/activate && source ~/RPL/devel/setup.bash"
+ACTIVATE_ENV = "source /home/piotr/RPL/Allegro-Hand-Teleoperation/ik_teleop/env_teleop/bin/activate && source ~/RPL/devel/setup.bash"
 
 # List of scripts
 scripts = {
     "Allegro Hand": f"source {ALLEGRO_HAND_DIR}/devel/setup.bash && roslaunch allegro_hand allegro_hand.launch",
-    "TCP Endpoint": "roslaunch ros_tcp_endpoint endpoint.launch tcp_ip:=192.168.7.103 tcp_port:=10000",
+    "TCP Endpoint": "roslaunch ros_tcp_endpoint endpoint.launch tcp_ip:=192.168.7.108 tcp_port:=10000",
     "Allegro Controller": f"python {SCRIPTS_DIR}/allegro_controller.py",
     "Index Controller": f"python {SCRIPTS_DIR}/index_controller.py",
     "Middle Controller": f"python {SCRIPTS_DIR}/middle_controller.py",

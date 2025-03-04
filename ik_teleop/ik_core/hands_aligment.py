@@ -32,7 +32,12 @@ ROBOT_KEYPOINTS_COUNT = 20
 
 class AllegroRetargetingOptimizer:
     def __init__(self):
-        rospy.init_node('allegro_retargeting_optimizer')
+        self.node_name = 'allegro_retargeting_optimizer'
+        try:
+            rospy.init_node(self.node_name)
+        except rospy.ROSException as e:
+            rospy.loginfo(f'Node initialization failed: {self.node_name}')
+            pass
 
 
         rospy.Subscriber('/quest/joint_poses', PoseArray, callback=self._get_XR_joints_poses, queue_size=1)
@@ -54,7 +59,7 @@ class AllegroRetargetingOptimizer:
         self.tree = ET.parse(self.urdf_file)
         self.allegro_keypoints_pose_array = []
 
-        rospy.loginfo("Started AllegroRetargetingOptimizer Node")
+        rospy.loginfo(f"{self.node_name}: Started AllegroRetargetingOptimizer Node")
 
 
 
@@ -64,7 +69,7 @@ class AllegroRetargetingOptimizer:
         finger_coords_array = []
         finger_orientation_array = []
         if len(msg.poses) < OCULUS_NUM_KEYPOINTS:
-            rospy.loginfo("ERROR: not enough joints received")
+            rospy.loginfo(f"{self.node_name}: ERROR: not enough joints received")
             return
         for i in range(OCULUS_NUM_KEYPOINTS):
             finger_coords_array.append(self.position_to_array(msg.poses[i].position))     
@@ -216,28 +221,22 @@ class AllegroRetargetingOptimizer:
         # Create an empty list to store the Euclidean distances between corresponding keypoints
         self.keypoint_difference_array = []
         # Iterate over each finger and calculate the Euclidean distance between corresponding keypoints
-        # rospy.loginfo(f"self.robot_coords {self.robot_coords}")
-        # rospy.loginfo(f"self.finger_coords {self.finger_coords}")
         for finger in ROBOT_JOINTS_NK:
             # Get the robot's keypoints for this finger
             robot_keypoints = self.robot_coords[finger]
             # Get the oculus' keypoints for this finger
             oculus_keypoints = self.finger_coords[finger]
 
-            # rospy.loginfo(f"\nKeypoint Differences for {finger.capitalize()} Finger:")
 
             # Ensure both robot_keypoints and oculus_keypoints are arrays (for multiple keypoints in a finger)
             for idx, (r_point, o_point) in enumerate(zip(robot_keypoints, oculus_keypoints)):
                 formatted_r_point = np.array([f"{coord:.5f}" for coord in r_point])
                 formatted_o_point = np.array([f"{coord:.5f}" for coord in o_point])
-                # rospy.loginfo(f"  r_point {formatted_r_point} o_point {formatted_o_point}")
             
                 # Calculate Euclidean distance between corresponding robot and Oculus keypoints
                 translation = r_point - o_point
                 self.keypoint_translation_array.append(translation)
 
-                # rospy.loginfo the index and the distance
-                # rospy.loginfo(f"  Keypoint {idx + 1}: Distance = {translation} meters")
 
     def align_hand_to_robot(self):
         # Robot finger lengths (in meters)
@@ -262,7 +261,6 @@ class AllegroRetargetingOptimizer:
             scaling_factor = robot_finger_lengths[finger] / total_length
             finger_scales[finger] = scaling_factor
             
-            # rospy.loginfo(f"Scaling factor for {finger.capitalize()} finger: {scaling_factor:.4f}")
 
         # Apply the scaling factors and translation to align fingers with the robot's measurements
         translation_array_offset = {'index': 0, 'middle': 4, 'ring': 8, 'thumb': 12}
@@ -428,7 +426,6 @@ class AllegroRetargetingOptimizer:
         tip_pose.orientation.y = combined_rotation[1]
         tip_pose.orientation.z = combined_rotation[2]
         tip_pose.orientation.w = combined_rotation[3]
-        # rospy.loginfo(f"Tip Joint: {tip_joint}, Pose: Position({combined_translation}), Orientation({combined_rotation})")
         return(tip_pose)
 
     def tf_callback(self, data):

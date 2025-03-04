@@ -71,10 +71,10 @@ class ThumbIK:
         )
 
         if result.success:
-            print(f"Converged in {result.nit} iterations.")
+            # print(f"Converged in {result.nit} iterations.")
             q = result.x
         else:
-            print("IK did not converge.")
+            print("IK: did not converge.")
             q = q0  # Return initial guess or handle as needed
 
         return q
@@ -135,7 +135,7 @@ class FingerIK:
         elif finger_type == 'ring':
             finger_index = 2
         else:
-            print(f"Wrong finger type {finger_type}")
+            print(f"IK: Wrong finger type {finger_type}")
         def objective(q):
             # Update DH parameters and compute forward kinematics
             self.set_dh_params(q)
@@ -145,7 +145,6 @@ class FingerIK:
             # Compute the variance of the error components
             variance_penalty = np.var(pos_error)
             # Return squared error norm with penalty
-            # print(f"pos_error**2 {np.sum(pos_error**2)} variance_penalty {variance_penalty}")
             return np.sum(pos_error**2) + variance_penalty
 
         # Bounds for joint limits as a sequence of (min, max) pairs
@@ -161,17 +160,12 @@ class FingerIK:
         )
 
         if result.success:
-            print(f"Converged in {result.nit} iterations.")
+            # print(f"Converged in {result.nit} iterations.")
             q = result.x
             self.set_dh_params(q0)
             self.compute_TEE(finger_index)
-            # pos_error = desired_position - self.TEE[:3, 3]
-            # print(f"actual_position: {self.TEE[:3, 3]}")
-            # print(f"desired_position: {desired_position}")
-            # print(f"pos_error: {pos_error}")
-            # print(f"q: {q}")
         else:
-            print("IK did not converge.")
+            print("IK: did not converge.")
             q = q0  # Return initial guess or handle as needed
 
         return q

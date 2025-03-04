@@ -13,7 +13,13 @@ import time
 JOINT_STATE_TOPIC = "/allegroHand/joint_states"
 
 class AllegroController:
-    def __init__(self):
+    def __init__(self, node_name):
+        self.node_name = node_name
+        try:
+            rospy.init_node(self.node_name)
+        except rospy.ROSException as e:
+            rospy.loginfo(f'Node initialization failed: {self.node_name}')
+            pass
         self.finger_types = ['index', 'middle', 'ring', 'thumb']
         self.current_joint_state = JointState()
         self.processes = []  # Track subprocesses
@@ -63,7 +69,7 @@ class AllegroController:
                 delta_time = current_time - self.last_publish_time
                 frequency = 1.0 / delta_time
                 self.publish_timestamps.append((current_time, frequency))  # Store timestamp and frequency
-                rospy.loginfo(f"Publishing frequency: {frequency:.2f} Hz")
+                rospy.loginfo(f"{self.node_name}: Publishing frequency: {frequency:.2f} Hz")
 
             self.last_publish_time = current_time  # Update the last publish time
             self._calculate_recent_frequency_stats(current_time)
@@ -94,7 +100,7 @@ class AllegroController:
             delta_time = current_time - self.last_publish_time
             frequency = 1.0 / delta_time
             self.publish_timestamps.append((current_time, frequency))  # Store timestamp and frequency
-            rospy.loginfo(f"Publishing frequency: {frequency:.2f} Hz")
+            rospy.loginfo(f"{self.node_name}: Publishing frequency: {frequency:.2f} Hz")
         self.last_publish_time = current_time  # Update the last publish time
         self._calculate_recent_frequency_stats(current_time)
         self.joint_comm_publisher.publish(desired_js)
@@ -113,8 +119,8 @@ class AllegroController:
             lowest_frequency = np.min(frequencies)
 
             # Log or publish the stats
-            rospy.loginfo(f"Average frequency (last 10s): {average_frequency:.2f} Hz")
-            rospy.loginfo(f"Lowest frequency (last 10s): {lowest_frequency:.2f} Hz")
+            rospy.loginfo(f"{self.node_name}: Average frequency (last 10s): {average_frequency:.2f} Hz")
+            rospy.loginfo(f"{self.node_name}: Lowest frequency (last 10s): {lowest_frequency:.2f} Hz")
 
     # Because kth_franka_plant sends delta commands we need current angles to create new joint_cmd message
     def _sub_callback_joint_state(self, data):
@@ -140,16 +146,17 @@ class AllegroController:
 
 
 if __name__ == '__main__':
-    rospy.init_node('allegro_controller')
-    allegro_controller = AllegroController()
+    node_name = 'allegro_controller'
+    rospy.init_node(node_name)
+    allegro_controller = AllegroController(node_name)
 
     # Set up signal handler for Ctrl+C
 
-    rospy.loginfo('Started Allegro Hand controller')
+    rospy.loginfo(f'{node_name}: Started Allegro Hand controller')
     try:
         # allegro_controller.start_finger_controllers()
         rospy.spin()
     except Exception as e:
-        rospy.loginfo(f"Exception occurred: {e}")
+        rospy.loginfo(f"{node_name}: Exception occurred: {e}")
     finally:
-        rospy.loginfo("Allegro Controller terminated.")
+        rospy.loginfo(f"{node_name}: Allegro Controller terminated.")

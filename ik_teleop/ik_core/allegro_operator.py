@@ -11,6 +11,7 @@ from ik_teleop.teleop_utils.constants import *
 
 class AllegroHandOperator:
     def __init__(self, finger_configs):
+        self.node_name = "allegro_hand_operator"
         if not rospy.core.is_initialized():
             try:
                 rospy.init_node('allegro_hand_operator')
@@ -53,7 +54,7 @@ class AllegroHandOperator:
         finger_coords_array = []
         finger_orientation_array = []
         if len(msg.poses) < OCULUS_NUM_KEYPOINTS_TRANSFORMED:
-            rospy.loginfo("ERROR: not enough joints received")
+            rospy.loginfo(f"{self.node_name}: ERROR: not enough joints received")
             return
         for i in range(OCULUS_NUM_KEYPOINTS_TRANSFORMED):
             # finger_poses_array.append(msg.poses[i])
