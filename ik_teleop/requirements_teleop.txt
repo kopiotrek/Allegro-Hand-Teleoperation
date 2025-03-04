@@ -1,0 +1,11 @@
+ikpy
+numpy
+psutil
+PyYAML
+#rospy
+scipy
+Shapely
+rospkg
+opencv-python
+catkin-pkg
+wheel
