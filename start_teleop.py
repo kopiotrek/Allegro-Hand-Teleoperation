@@ -5,9 +5,9 @@ import subprocess
 import time
 
 # Paths
-SCRIPTS_DIR = os.path.expanduser("~/RPL/Allegro-Hand-Teleoperation/ik_teleop/")
-ALLEGRO_HAND_DIR = os.path.expanduser("~/RPL/DIME-Controllers/")
-ACTIVATE_ENV = "source /home/piotr/RPL/Allegro-Hand-Teleoperation/ik_teleop/env_teleop/bin/activate && source ~/RPL/devel/setup.bash"
+SCRIPTS_DIR = os.path.expanduser("~/Allegro-Hand-Teleoperation/ik_teleop/")
+ALLEGRO_HAND_DIR = os.path.expanduser("~/DIME-Controllers/")
+ACTIVATE_ENV = "source /home/piotr/Allegro-Hand-Teleoperation/ik_teleop/env_teleop/bin/activate && source ~/devel/setup.bash"
 
 # List of scripts
 scripts = {
