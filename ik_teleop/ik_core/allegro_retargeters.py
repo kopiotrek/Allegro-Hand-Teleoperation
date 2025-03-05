@@ -32,7 +32,7 @@ class AllegroKDLControl(AllegroKinematicControl):
     def __init__(self,  bounded_angles = True):
         super().__init__(bounded_angles)
         self.solver = AllegroKDL()
-        self.ajc = AllegroJointControl()
+        #self.ajc = AllegroJointControl()
 
     def calculate_desired_angles(
         self, 

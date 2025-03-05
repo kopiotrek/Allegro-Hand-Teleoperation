@@ -4,7 +4,7 @@ from geometry_msgs.msg import PoseArray, Pose
 
 from shapely.geometry import Point, Polygon 
 from shapely.ops import nearest_points
-from ik_teleop.ik_core.allegro_retargeters import AllegroKDLControl, AllegroJointControl
+from ik_teleop.ik_core.allegro_retargeters import *
 from ik_teleop.teleop_utils.files import *
 from ik_teleop.teleop_utils.vectorops import *
 from ik_teleop.teleop_utils.constants import *
@@ -26,7 +26,7 @@ class AllegroHandOperator:
 
         #Initializing the solvers for allegro hand
         self.fingertip_solver = AllegroKDLControl()
-        self.finger_joint_solver = AllegroJointControl()
+        #self.finger_joint_solver = AllegroJointControl()
 
         # Initialzing the moving average queues
         self.moving_average_queues = {

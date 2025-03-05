@@ -51,11 +51,30 @@ source devel/setup.bash
 roslaunch allegro_hand allegro_hand.launch
 Press "H" to home the robot
 
+## Installing ROS-TCP-Endpoint
+mkdir ~/ros_ws/src
+cd ~/ros_ws/src
+git clone https://github.com/Unity-Technologies/ROS-TCP-Endpoint.git
+cd ..
+catkin_make
+
 ## Running teleoperation
 
 add to bashrc:
 
 source /opt/ros/noetic/setup.bash
-#export PYTHONPATH=$HOME/RPL/DIME-IK-TeleOp:$PYTHONPATH
+export PYTHONPATH=$HOME/ros_ws/Allegro-Hand-Teleoperation:$PYTHONPATH
 export PYTHONPATH=$PYTHONPATH:/opt/ros/noetic/lib/python3/dist-packages
 #alias catkin_make='catkin_make -DPYTHON_EXECUTABLE=$HOME/ros_ws/Allegro-Hand-Teleoperation/ik_teleop/teleop_env/bin/python'
+
+create venv:
+sudo apt install python3.8-venv
+sudo apt install python3-pip
+
+cd ros_ws/Allegro-Hand-Teleoperation/ik_teleop/
+python3 -m venv env_teleop
+source env_teleop/bin/activate
+pip install -r requirements_teleop.txt
+
+
+
