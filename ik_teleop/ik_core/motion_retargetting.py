@@ -32,7 +32,7 @@ ROBOT_KEYPOINTS_COUNT = 20
 
 class AllegroRetargetingOptimizer:
     def __init__(self):
-        self.node_name = 'allegro_retargeting_optimizer'
+        self.node_name = 'motion_retargetting'
         try:
             rospy.init_node(self.node_name)
         except rospy.ROSException as e:
@@ -59,7 +59,7 @@ class AllegroRetargetingOptimizer:
         self.tree = ET.parse(self.urdf_file)
         self.allegro_keypoints_pose_array = []
 
-        rospy.loginfo(f"{self.node_name}: Started AllegroRetargetingOptimizer Node")
+        rospy.loginfo(f"{self.node_name}: Started motion retargetting Node")
 
 
 
@@ -223,10 +223,20 @@ class AllegroRetargetingOptimizer:
         # Iterate over each finger and calculate the Euclidean distance between corresponding keypoints
         for finger in ROBOT_JOINTS_NK:
             # Get the robot's keypoints for this finger
-            robot_keypoints = self.robot_coords[finger]
-            # Get the oculus' keypoints for this finger
-            oculus_keypoints = self.finger_coords[finger]
+            try:
+                robot_keypoints = self.robot_coords[finger]
+            except:
+                rospy.loginfo(f'{self.node_name}: ERROR: No robot keypoints received! Shutting down...')
+                rospy.signal_shutdown(f"{self.node_name}: SHUTDOWN")
+                break
 
+            # Get the oculus' keypoints for this finger
+            try:
+                oculus_keypoints = self.finger_coords[finger]
+            except:
+                rospy.loginfo(f'{self.node_name}: ERROR: No human hand keypoints received! Shutting down...')
+                rospy.signal_shutdown(f"{self.node_name}: SHUTDOWN")
+                break
 
             # Ensure both robot_keypoints and oculus_keypoints are arrays (for multiple keypoints in a finger)
             for idx, (r_point, o_point) in enumerate(zip(robot_keypoints, oculus_keypoints)):

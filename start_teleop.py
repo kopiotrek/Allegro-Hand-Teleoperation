@@ -2,8 +2,7 @@ import tkinter as tk
 import os
 import signal
 import subprocess
-import psutil
-import time 
+import time
 
 # Paths
 SCRIPTS_DIR = os.path.expanduser("~/RPL/Allegro-Hand-Teleoperation/ik_teleop/")
@@ -19,15 +18,16 @@ scripts = {
     "Middle Controller": f"python {SCRIPTS_DIR}/middle_controller.py",
     "Ring Controller": f"python {SCRIPTS_DIR}/ring_controller.py",
     "Thumb Controller": f"python {SCRIPTS_DIR}/thumb_controller.py",
-    "Hand Alignment": f"python {SCRIPTS_DIR}/ik_core/hands_aligment.py",
+    "Motion Retargetting": f"python {SCRIPTS_DIR}/ik_core/motion_retargetting.py",
 }
 
 processes = {}  # Dictionary to store running processes
 
 def start_script(script_name):
     """Start a script as a background process."""
-    if script_name in processes and processes[script_name].poll() is None:
-        return  # If already running, do nothing
+    if is_running(script_name):
+        stop_script(script_name)
+        return
     
     cmd = f'bash -c "{ACTIVATE_ENV}; {scripts[script_name]}"'
     process = subprocess.Popen(cmd, shell=True, preexec_fn=os.setsid)
@@ -36,7 +36,7 @@ def start_script(script_name):
 
 def stop_script(script_name):
     """Stop a script if it's running."""
-    if script_name in processes and processes[script_name].poll() is None:
+    if is_running(script_name):
         process = processes[script_name]
         os.killpg(os.getpgid(process.pid), signal.SIGTERM)  # Terminate process group
         process.wait()
@@ -61,7 +61,17 @@ def is_running(script_name):
 def update_buttons():
     """Update button colors based on script status."""
     for script_name, button in script_buttons.items():
-        button.config(bg="green" if is_running(script_name) else "gray")
+        if is_running(script_name):
+            button.config(bg="green")
+        elif script_name in processes:
+            button.config(bg="red")  # Crashed or exited unexpectedly
+        else:
+            button.config(bg="gray")
+
+def monitor_scripts():
+    """Continuously check if scripts are still running."""
+    update_buttons()
+    root.after(1000, monitor_scripts)  # Run every second
 
 def on_closing():
     """Handle application exit."""
@@ -75,7 +85,7 @@ root.title("Teleoperation Control Panel")
 script_buttons = {}
 
 for script_name in scripts:
-    btn = tk.Button(root, text=f"Start {script_name}", command=lambda s=script_name: start_script(s), bg="gray")
+    btn = tk.Button(root, text=script_name, command=lambda s=script_name: start_script(s), bg="gray")
     btn.pack(fill=tk.X)
     script_buttons[script_name] = btn
 
@@ -84,6 +94,6 @@ tk.Button(root, text="Stop All", command=stop_all, fg="white", bg="red").pack(fi
 
 # Add signal handler for Ctrl+C
 root.protocol("WM_DELETE_WINDOW", on_closing)
-signal.signal(signal.SIGINT, lambda sig, frame: on_closing())
+root.after(1000, monitor_scripts)  # Start monitoring
 
 root.mainloop()
