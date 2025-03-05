@@ -9,3 +9,4 @@ rospkg
 opencv-python
 catkin-pkg
 wheel
+empy
