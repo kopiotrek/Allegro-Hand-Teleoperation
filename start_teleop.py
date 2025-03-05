@@ -7,7 +7,7 @@ import time
 # Paths
 SCRIPTS_DIR = os.path.expanduser("~/ros_ws/Allegro-Hand-Teleoperation/ik_teleop/")
 ALLEGRO_HAND_DIR = os.path.expanduser("~/ros_ws/DIME-Controllers/")
-ACTIVATE_ENV = "source /home/piotr/Allegro-Hand-Teleoperation/ik_teleop/env_teleop/bin/activate && source ~/ros_ws/devel/setup.bash"
+ACTIVATE_ENV = "source ~/ros_ws/Allegro-Hand-Teleoperation/ik_teleop/env_teleop/bin/activate && source ~/ros_ws/devel/setup.bash"
 
 # List of scripts
 scripts = {
