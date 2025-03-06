@@ -253,9 +253,9 @@ class AllegroRetargetingOptimizer:
         # scale_compensation = 0.93 to make the allegro fingers extended for real
         # Robot finger lengths (in meters)
         robot_finger_lengths = {
-            'index': 0.142 #0.1527*0.93,
-            'middle': 0.142 #0.1527*0.93, #human hand: 0.099
-            'ring': 0.142 #0.1527*0.93,
+            'index': 0.142, #0.1527*0.93
+            'middle': 0.142, #0.1527*0.93 #human hand: 0.099
+            'ring': 0.142, #0.1527*0.93
             'thumb': 0.1308, #0.0363 is real length of servo no.1
         }
 
