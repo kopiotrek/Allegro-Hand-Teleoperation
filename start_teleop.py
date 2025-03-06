@@ -19,12 +19,12 @@ ACTIVATE_ENV = "source ~/ros_ws/Allegro-Hand-Teleoperation/ik_teleop/venv_teleop
 scripts = {
     "Allegro Hand": f"source {ALLEGRO_HAND_DIR}/devel/setup.bash && roslaunch allegro_hand allegro_hand.launch",
     "TCP Endpoint": f"roslaunch ros_tcp_endpoint endpoint.launch tcp_ip:={args.ip} tcp_port:=10000",
-    "Motion Retargetting": f"python {SCRIPTS_DIR}/motion_retargetting.py",
     "Allegro Controller": f"python {SCRIPTS_DIR}/allegro_controller.py",
     "Index Controller": f"python {SCRIPTS_DIR}/index_controller.py",
     "Middle Controller": f"python {SCRIPTS_DIR}/middle_controller.py",
     "Ring Controller": f"python {SCRIPTS_DIR}/ring_controller.py",
     "Thumb Controller": f"python {SCRIPTS_DIR}/thumb_controller.py",
+    "Motion Retargetting": f"python {SCRIPTS_DIR}/motion_retargetting.py",
 }
 
 processes = {}  # Dictionary to store running processes
