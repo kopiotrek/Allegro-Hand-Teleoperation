@@ -126,7 +126,7 @@ pip install -r requirements_teleop.txt
 
 ### Start the Teleoperation
 1. **Ensure the Allegro Hand is connected and the driver is working.**
-2. Start the Allegro-Hand-Teleoperation app in Meta Quest, check the IP and otherwise just click continue everywhere, then skip
+2. Start the Allegro-Hand-Teleoperation app in Meta Quest, check the IP and otherwise just click continue everywhere, then press skip
 3. Activate the virtual environment:
    ```bash
    source ~/ros_ws/Allegro-Hand-Teleoperation/ik_teleop/env_teleop/bin/activate
