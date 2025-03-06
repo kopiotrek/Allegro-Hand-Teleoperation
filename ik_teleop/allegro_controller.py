@@ -71,7 +71,7 @@ class AllegroController:
                 delta_time = current_time - self.last_publish_time
                 frequency = 1.0 / delta_time
                 self.publish_timestamps.append((current_time, frequency))  # Store timestamp and frequency
-                rospy.loginfo(f"{self.node_name}: Publishing frequency: {frequency:.2f} Hz")
+                #rospy.loginfo(f"{self.node_name}: Publishing frequency: {frequency:.2f} Hz")
 
             self.last_publish_time = current_time  # Update the last publish time
             self._calculate_recent_frequency_stats(current_time)
@@ -102,7 +102,7 @@ class AllegroController:
             delta_time = current_time - self.last_publish_time
             frequency = 1.0 / delta_time
             self.publish_timestamps.append((current_time, frequency))  # Store timestamp and frequency
-            rospy.loginfo(f"{self.node_name}: Publishing frequency: {frequency:.2f} Hz")
+            #rospy.loginfo(f"{self.node_name}: Publishing frequency: {frequency:.2f} Hz")
         self.last_publish_time = current_time  # Update the last publish time
         self._calculate_recent_frequency_stats(current_time)
         self.joint_comm_publisher.publish(desired_js)
@@ -121,8 +121,8 @@ class AllegroController:
             lowest_frequency = np.min(frequencies)
 
             # Log or publish the stats
-            rospy.loginfo(f"{self.node_name}: Average frequency (last 10s): {average_frequency:.2f} Hz")
-            rospy.loginfo(f"{self.node_name}: Lowest frequency (last 10s): {lowest_frequency:.2f} Hz")
+            #rospy.loginfo(f"{self.node_name}: Average frequency (last 10s): {average_frequency:.2f} Hz")
+            #rospy.loginfo(f"{self.node_name}: Lowest frequency (last 10s): {lowest_frequency:.2f} Hz")
 
     # Because kth_franka_plant sends delta commands we need current angles to create new joint_cmd message
     def _sub_callback_joint_state(self, data):

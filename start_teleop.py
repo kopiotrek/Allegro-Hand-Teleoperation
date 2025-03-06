@@ -3,6 +3,12 @@ import os
 import signal
 import subprocess
 import time
+import argparse
+
+# Argument parser to get the IP address
+parser = argparse.ArgumentParser(description='Teleoperation Control Panel')
+parser.add_argument('--ip', type=str, default='192.168.7.108', help='TCP IP address for the endpoint')
+args = parser.parse_args()
 
 # Paths
 SCRIPTS_DIR = os.path.expanduser("~/ros_ws/Allegro-Hand-Teleoperation/ik_teleop")
@@ -12,7 +18,7 @@ ACTIVATE_ENV = "source ~/ros_ws/Allegro-Hand-Teleoperation/ik_teleop/venv_teleop
 # List of scripts
 scripts = {
     "Allegro Hand": f"source {ALLEGRO_HAND_DIR}/devel/setup.bash && roslaunch allegro_hand allegro_hand.launch",
-    "TCP Endpoint": "roslaunch ros_tcp_endpoint endpoint.launch tcp_ip:=192.168.7.108 tcp_port:=10000",
+    "TCP Endpoint": f"roslaunch ros_tcp_endpoint endpoint.launch tcp_ip:={args.ip} tcp_port:=10000",
     "Motion Retargetting": f"python {SCRIPTS_DIR}/motion_retargetting.py",
     "Allegro Controller": f"python {SCRIPTS_DIR}/allegro_controller.py",
     "Index Controller": f"python {SCRIPTS_DIR}/index_controller.py",
@@ -97,3 +103,4 @@ root.protocol("WM_DELETE_WINDOW", on_closing)
 root.after(1000, monitor_scripts)  # Start monitoring
 
 root.mainloop()
+
