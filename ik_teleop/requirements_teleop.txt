@@ -9,4 +9,4 @@ rospkg
 opencv-python
 catkin-pkg
 wheel
-empy
+empy==3.3.4

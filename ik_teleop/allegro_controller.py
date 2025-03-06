@@ -145,20 +145,28 @@ class AllegroController:
         self.thumb_delta_cmd = data.position
         self.thumb_mutex = True
 
+    
+    def run(self):
+        try:
+            rospy.spin()
+        except Exception as e:
+            rospy.loginfo(f"{self.node_name}: Exception occurred: {e}")
+        finally:
+            rospy.loginfo(f"{self.node_name}: Terminated.")
+
 
 
 if __name__ == '__main__':
     node_name = 'allegro_controller'
     #rospy.init_node(node_name)
     allegro_controller = AllegroController()
-
+    allegro_controller.run()
     # Set up signal handler for Ctrl+C
 
 
-    try:
-        # allegro_controller.start_finger_controllers()
-        rospy.spin()
-    except Exception as e:
-        rospy.loginfo(f"{node_name}: Exception occurred: {e}")
-    finally:
-        rospy.loginfo(f"{node_name}: Allegro Controller terminated.")
+    # try:
+    #     rospy.spin()
+    # except Exception as e:
+    #     rospy.loginfo(f"{node_name}: Exception occurred: {e}")
+    # finally:
+    #     rospy.loginfo(f"{node_name}: Terminated.")

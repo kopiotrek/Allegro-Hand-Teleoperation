@@ -116,10 +116,14 @@ class TeleOp(object):
                 current_angles_array = np.array(self.current_joint_pose.position)  # Ensure correct type
                 self.hand_pose(current_angles_array)
 
-    def control_finger(self):
-        while not rospy.is_shutdown():
-            continue
+    def run(self):
+        try:
+            rospy.spin()
+        except Exception as e:
+            rospy.loginfo(f"{self.node_name}: Exception occurred: {e}")
+        finally:
+            rospy.loginfo(f"{self.node_name}: Terminated.")
 
 if __name__ == '__main__':
     tp = TeleOp()
-    tp.control_finger()
+    tp.run()

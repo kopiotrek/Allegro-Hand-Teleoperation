@@ -513,7 +513,12 @@ class AllegroRetargetingOptimizer:
         ])
 
     def run(self):
-        rospy.spin()
+        try:
+            rospy.spin()
+        except Exception as e:
+            rospy.loginfo(f"{self.node_name}: Exception occurred: {e}")
+        finally:
+            rospy.loginfo(f"{self.node_name}: Terminated.")
 
 
 
