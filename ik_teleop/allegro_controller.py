@@ -15,11 +15,11 @@ JOINT_STATE_TOPIC = "/allegroHand/joint_states"
 class AllegroController:
     def __init__(self, node_name):
         self.node_name = node_name
-        try:
-            rospy.init_node(self.node_name)
-        except rospy.ROSException as e:
-            rospy.loginfo(f'Node initialization failed: {self.node_name}')
-            pass
+        # try:
+        #     rospy.init_node(self.node_name)
+        # except rospy.ROSException as e:
+        #     rospy.loginfo(f'Node initialization failed: {self.node_name}')
+        #     pass
         self.finger_types = ['index', 'middle', 'ring', 'thumb']
         self.current_joint_state = JointState()
         self.processes = []  # Track subprocesses

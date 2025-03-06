@@ -1,3 +1,4 @@
 /hand_recordings
 *.avi
 ik_teleop/teleop_utils/'hand recordings.zip'
+/__pycache__

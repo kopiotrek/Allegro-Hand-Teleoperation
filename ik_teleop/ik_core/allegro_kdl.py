@@ -21,11 +21,11 @@ RING_IK_MARKER_TOPIC = '/ik_marker/ring'
 class AllegroKDL(object):
     def __init__(self):
         self.node_name = "allegro_kdl"
-        try:
-            rospy.init_node(self.node_name)
-        except rospy.ROSException as e:
-            rospy.loginfo(f'Node initialization failed: {self.node_name}')
-            pass
+        # try:
+        #     rospy.init_node(self.node_name)
+        # except rospy.ROSException as e:
+        #     rospy.loginfo(f'Node initialization failed: {self.node_name}')
+        #     pass
         # Getting the URDF path
         urdf_path = get_path_in_package("robot/assets/allegro_hand_right.urdf")
         # urdf_path = get_path_in_package("robot/assets/allegro_hand_right.urdf")

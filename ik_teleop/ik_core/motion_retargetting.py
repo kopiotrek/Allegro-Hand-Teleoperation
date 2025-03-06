@@ -33,11 +33,11 @@ ROBOT_KEYPOINTS_COUNT = 20
 class AllegroRetargetingOptimizer:
     def __init__(self):
         self.node_name = 'motion_retargetting'
-        try:
-            rospy.init_node(self.node_name)
-        except rospy.ROSException as e:
-            rospy.loginfo(f'Node initialization failed: {self.node_name}')
-            pass
+        # try:
+        #     rospy.init_node(self.node_name)
+        # except rospy.ROSException as e:
+        #     rospy.loginfo(f'Node initialization failed: {self.node_name}')
+        #     pass
 
 
         rospy.Subscriber('/quest/joint_poses', PoseArray, callback=self._get_XR_joints_poses, queue_size=1)

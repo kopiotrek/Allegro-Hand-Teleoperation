@@ -24,11 +24,11 @@ class TeleOp(object):
         self.node_name = self.finger_type + '_controller'
         rospy.loginfo(f"{self.finger_type} controller starting...")
 
-        try:
-            rospy.init_node(f'hardware_teleop_{self.finger_type}')
-        except rospy.ROSException as e:
-            rospy.loginfo(f'Node initialization failed: {self.finger_type+str(e)}')
-            pass
+        # try:
+        #     rospy.init_node(f'hardware_teleop_{self.finger_type}')
+        # except rospy.ROSException as e:
+        #     rospy.loginfo(f'Node initialization failed: {self.finger_type+str(e)}')
+        #     pass
         self.desired_joint_angles = np.array([0.0, 0.28113237, 0.16851817, 0.0, 0.0, 0.17603329, 
             0.21581194, 0.0, 0.2928223, 0.16747166, 1.45242466, 1.45812127, 0.69531447, 1.1, 1.1, 1.1])
         self.desired_joint_angles_delta = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
