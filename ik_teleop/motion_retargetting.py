@@ -223,20 +223,25 @@ class AllegroRetargetingOptimizer:
         # Iterate over each finger and calculate the Euclidean distance between corresponding keypoints
         for finger in ROBOT_JOINTS_NK:
             # Get the robot's keypoints for this finger
-            try:
-                robot_keypoints = self.robot_coords[finger]
-            except:
-                rospy.loginfo(f'{self.node_name}: ERROR: No robot keypoints received! Shutting down...')
-                rospy.signal_shutdown(f"{self.node_name}: SHUTDOWN")
-                break
+            waiting_for_keypoints = True
+            while waiting_for_keypoints:
+                try:
+                    robot_keypoints = self.robot_coords[finger]
+                    waiting_for_keypoints = False
+                except:
+                    rospy.loginfo(f'{self.node_name}: ERROR: No robot keypoints received! Waiting...')
+                    time.sleep(.5)
+                    pass
 
             # Get the oculus' keypoints for this finger
-            try:
-                oculus_keypoints = self.finger_coords[finger]
-            except:
-                rospy.loginfo(f'{self.node_name}: ERROR: No human hand keypoints received! Shutting down...')
-                rospy.signal_shutdown(f"{self.node_name}: SHUTDOWN")
-                break
+            waiting_for_keypoints = True
+            while waiting_for_keypoints:
+                try:
+                    oculus_keypoints = self.finger_coords[finger]
+                    waiting_for_keypoints = False
+                except:
+                    rospy.loginfo(f'{self.node_name}: ERROR: No human hand keypoints received! Waiting...')
+                    pass
 
             # Ensure both robot_keypoints and oculus_keypoints are arrays (for multiple keypoints in a finger)
             for idx, (r_point, o_point) in enumerate(zip(robot_keypoints, oculus_keypoints)):
