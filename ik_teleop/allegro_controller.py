@@ -82,7 +82,7 @@ class AllegroController:
                 self.ring_mutex = False
                 self.thumb_mutex = False
         except:
-            rospy.loginfo(f'{self.node_name}: ERROR: IK solutions missing! Waiting...')
+            rospy.loginfo(f'{self.node_name}: WARN: IK solutions missing! Waiting...')
             time.sleep(.5)
             pass
 

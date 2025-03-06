@@ -62,7 +62,7 @@ class TeleOp(object):
         if data.data:
             rospy.loginfo(f"{self.node_name}: ||")
         else:
-            rospy.loginfo(f"{self.node_name}: ▷")
+            rospy.loginfo(f"{self.node_name}:  ▷")
         self.pause = data.data
 
     # def _sub_callback_joint_cmd(self, data):
