@@ -45,47 +45,47 @@ class AllegroController:
         # Calculate average and lowest frequency from the last 10 seconds
 
         # Rest of the code for publishing desired joint states
-        try:
-            oculus_keypoints = self.finger_coords[finger]
-            cmd_delta_joint_state = list(self.index_delta_cmd[0:4]) + list(self.middle_delta_cmd[4:8]) + list(self.ring_delta_cmd[8:12]) + list(self.thumb_delta_cmd[12:])
-            current_angles = self.current_joint_state.position
+        # try:
+        oculus_keypoints = self.finger_coords[finger]
+        cmd_delta_joint_state = list(self.index_delta_cmd[0:4]) + list(self.middle_delta_cmd[4:8]) + list(self.ring_delta_cmd[8:12]) + list(self.thumb_delta_cmd[12:])
+        current_angles = self.current_joint_state.position
 
-            desired_delta_js = copy(self.current_joint_state)
-            desired_delta_js.position = list(np.array(cmd_delta_joint_state))
-            desired_delta_js.effort = []
-            desired_delta_js.velocity = []
-            self.joint_comm_delta_publisher.publish(desired_delta_js)
+        desired_delta_js = copy(self.current_joint_state)
+        desired_delta_js.position = list(np.array(cmd_delta_joint_state))
+        desired_delta_js.effort = []
+        desired_delta_js.velocity = []
+        self.joint_comm_delta_publisher.publish(desired_delta_js)
 
-            desired_angles = np.array(cmd_delta_joint_state) + np.array(current_angles)
-            desired_angles[0] = 0
-            desired_angles[4] = 0
-            desired_angles[8] = 0
-            desired_js = copy(self.current_joint_state)
-            desired_js.position = list(desired_angles)
-            desired_js.effort = []
-            desired_js.velocity = []
-            if self.index_mutex and self.middle_mutex and self.ring_mutex and self.thumb_mutex is True:
-                current_time = rospy.get_time()  # Get current time
+        desired_angles = np.array(cmd_delta_joint_state) + np.array(current_angles)
+        desired_angles[0] = 0
+        desired_angles[4] = 0
+        desired_angles[8] = 0
+        desired_js = copy(self.current_joint_state)
+        desired_js.position = list(desired_angles)
+        desired_js.effort = []
+        desired_js.velocity = []
+        if self.index_mutex and self.middle_mutex and self.ring_mutex and self.thumb_mutex is True:
+            current_time = rospy.get_time()  # Get current time
 
-                # Calculate and log frequency
-                if self.last_publish_time is not None:
-                    delta_time = current_time - self.last_publish_time
-                    frequency = 1.0 / delta_time
-                    self.publish_timestamps.append((current_time, frequency))  # Store timestamp and frequency
-                    #rospy.loginfo(f"{self.node_name}: Publishing frequency: {frequency:.2f} Hz")
+            # Calculate and log frequency
+            if self.last_publish_time is not None:
+                delta_time = current_time - self.last_publish_time
+                frequency = 1.0 / delta_time
+                self.publish_timestamps.append((current_time, frequency))  # Store timestamp and frequency
+                #rospy.loginfo(f"{self.node_name}: Publishing frequency: {frequency:.2f} Hz")
 
-                self.last_publish_time = current_time  # Update the last publish time
-                self._calculate_recent_frequency_stats(current_time)
+            self.last_publish_time = current_time  # Update the last publish time
+            self._calculate_recent_frequency_stats(current_time)
 
-                self.joint_comm_publisher.publish(desired_js)
-                self.index_mutex = False
-                self.middle_mutex = False
-                self.ring_mutex = False
-                self.thumb_mutex = False
-        except:
-            rospy.loginfo(f'{self.node_name}: ERROR: IK solutions missing! Waiting...')
-            time.sleep(.5)
-            pass
+            self.joint_comm_publisher.publish(desired_js)
+            self.index_mutex = False
+            self.middle_mutex = False
+            self.ring_mutex = False
+            self.thumb_mutex = False
+        # except:
+        #     rospy.loginfo(f'{self.node_name}: ERROR: IK solutions missing! Waiting...')
+        #     time.sleep(.5)
+        #     pass
 
 
 
