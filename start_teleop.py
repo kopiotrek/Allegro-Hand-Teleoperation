@@ -29,7 +29,7 @@ scripts = {
 
 processes = {}  # Dictionary to store running processes
 
-def start_script(script_name):
+def toggle_script(script_name):
     """Start a script as a background process."""
     if is_running(script_name):
         stop_script(script_name)
@@ -39,6 +39,14 @@ def start_script(script_name):
     process = subprocess.Popen(cmd, shell=True, preexec_fn=os.setsid)
     processes[script_name] = process
     update_buttons()
+
+def start_script(script_name):
+    """Start a script as a background process."""    
+    cmd = f'bash -c "{ACTIVATE_ENV}; {scripts[script_name]}"'
+    process = subprocess.Popen(cmd, shell=True, preexec_fn=os.setsid)
+    processes[script_name] = process
+    update_buttons()
+    
 
 def stop_script(script_name):
     """Stop a script if it's running."""
@@ -91,7 +99,7 @@ root.title("Teleoperation Control Panel")
 script_buttons = {}
 
 for script_name in scripts:
-    btn = tk.Button(root, text=script_name, command=lambda s=script_name: start_script(s), bg="gray")
+    btn = tk.Button(root, text=script_name, command=lambda s=script_name: toggle_script(s), bg="gray")
     btn.pack(fill=tk.X)
     script_buttons[script_name] = btn
 
