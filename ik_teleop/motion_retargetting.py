@@ -268,7 +268,6 @@ class AllegroRetargetingOptimizer:
             for i in range(len(finger_joints) - 1):
                 link_length = np.linalg.norm(finger_joints[i] - finger_joints[i + 1])
                 total_length += link_length
-            print(f"finger {finger} total_length {total_length}")
 
             # Calculate the scaling factor (robot length / XR length)
             scaling_factor = robot_finger_lengths[finger] / total_length
