@@ -18,7 +18,7 @@ scripts = {
     "Middle Controller": f"python {SCRIPTS_DIR}/middle_controller.py",
     "Ring Controller": f"python {SCRIPTS_DIR}/ring_controller.py",
     "Thumb Controller": f"python {SCRIPTS_DIR}/thumb_controller.py",
-    "Motion Retargetting": f"python {SCRIPTS_DIR}/ik_core/motion_retargetting.py",
+    "Motion Retargetting": f"python {SCRIPTS_DIR}/motion_retargetting.py",
 }
 
 processes = {}  # Dictionary to store running processes

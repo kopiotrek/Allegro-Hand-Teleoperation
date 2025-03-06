@@ -13,13 +13,13 @@ import time
 JOINT_STATE_TOPIC = "/allegroHand/joint_states"
 
 class AllegroController:
-    def __init__(self, node_name):
-        self.node_name = node_name
-        # try:
-        #     rospy.init_node(self.node_name)
-        # except rospy.ROSException as e:
-        #     rospy.loginfo(f'Node initialization failed: {self.node_name}')
-        #     pass
+    def __init__(self):
+        self.node_name = 'allegro_controller'
+        try:
+            rospy.init_node(self.node_name)
+        except rospy.ROSException as e:
+            rospy.loginfo(f'Node initialization failed: {self.node_name}')
+            pass
         self.finger_types = ['index', 'middle', 'ring', 'thumb']
         self.current_joint_state = JointState()
         self.processes = []  # Track subprocesses
@@ -38,7 +38,9 @@ class AllegroController:
         rospy.Subscriber('/allegroHand/thumb/joint_cmd_delta', JointState, self._sub_callback_thumb_delta_cmd)
 
         rospy.Subscriber('/kth_franka_plant/in/allegro_cmd', JointState, self._sub_callback_delta_cmd)
-
+        rospy.loginfo(f'{self.node_name}: Initialized!')
+	
+    	
     def _callback_knuckle_coordinates(self, data):
         # Calculate average and lowest frequency from the last 10 seconds
 
@@ -147,12 +149,12 @@ class AllegroController:
 
 if __name__ == '__main__':
     node_name = 'allegro_controller'
-    rospy.init_node(node_name)
-    allegro_controller = AllegroController(node_name)
+    #rospy.init_node(node_name)
+    allegro_controller = AllegroController()
 
     # Set up signal handler for Ctrl+C
 
-    rospy.loginfo(f'{node_name}: Started Allegro Hand controller')
+
     try:
         # allegro_controller.start_finger_controllers()
         rospy.spin()
