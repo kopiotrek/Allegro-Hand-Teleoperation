@@ -1,6 +1,6 @@
 # Allegro Hand Teleoperation
 
-This guide will help you set up and run teleoperation for the Allegro Hand robot.
+This guide will help you set up and run teleoperation for the Allegro Hand robot using Meta Quest 3.
 
 ---
 
