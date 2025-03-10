@@ -1,12 +1,12 @@
 # Allegro Hand Teleoperation
 
-This guide will help you set up and run teleoperation for the Allegro Hand on **Ubuntu 20.04** with **ROS Noetic**.
+This guide will help you set up and run teleoperation for the Allegro Hand robot.
 
 ---
 
 ## Prerequisites
 
-### Fix GPG Key Error (If Needed)
+### Get a machine with Ubuntu 20.04 and install ROS Noetic
 If you encounter a **GPG key error** during ROS installation, run:
 ```bash
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F42ED6FBAB17C654
@@ -14,23 +14,26 @@ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F42ED6FBAB17C654
 
 ---
 
-## 1. Setup Instructions for Meta Quest
+## 1. Install Allegro-Hand-Teleoperation
 
-To use Meta Quest for teleoperation, follow these steps:
+### Clone this repository
 
-### Install SideQuest on Ubuntu 20.04
-1. Enable **Developer Mode** on your Meta Quest device.
-2. Download **SideQuest Desktop App** from [SideQuestVR](https://sidequestvr.com/setup-howto):
-   ```bash
-   tar -xf SideQuest-0.10.42.tar.xz
-   chmod +x SideQuest-0.10.42/sidequest
-   ./SideQuest-0.10.42/sidequest --no-sandbox
-   ```
-3. In SideQuest, click **"Install APK from folder on your computer"**, then select `AllegroHandTeleoperation.apk`.
-4. On your Meta Quest, go to **Apps > Unknown Sources** to find and launch the installed application.
-5. **Ensure your device is connected to the correct network!**
+### Add Environment Variables to `.bashrc`
+```bash
+echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
+echo "export PYTHONPATH=$HOME/ros_ws/Allegro-Hand-Teleoperation:\$PYTHONPATH" >> ~/.bashrc
+echo "export PYTHONPATH=\$PYTHONPATH:/opt/ros/noetic/lib/python3/dist-packages" >> ~/.bashrc
+source ~/.bashrc
+```
 
----
+### Set Up Virtual Environment
+```bash
+sudo apt install python3.8-venv python3-pip
+cd ~/ros_ws/Allegro-Hand-Teleoperation/ik_teleop/
+python3 -m venv venv_teleop
+source venv_teleop/bin/activate
+pip install -r requirements_teleop.txt
+```
 
 ## 2. Setup Instructions for Allegro Hand Controller
 
@@ -103,39 +106,40 @@ cd ..
 catkin_make
 ```
 
+
 ---
 
-## 5. Running Teleoperation
+## 5. Setup Instructions for Meta Quest
 
-### Add Environment Variables to `.bashrc`
-```bash
-echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
-echo "export PYTHONPATH=$HOME/ros_ws/Allegro-Hand-Teleoperation:\$PYTHONPATH" >> ~/.bashrc
-echo "export PYTHONPATH=\$PYTHONPATH:/opt/ros/noetic/lib/python3/dist-packages" >> ~/.bashrc
-source ~/.bashrc
-```
+To use Meta Quest for teleoperation, follow these steps:
 
-### Set Up Virtual Environment
-```bash
-sudo apt install python3.8-venv python3-pip
-cd ~/ros_ws/Allegro-Hand-Teleoperation/ik_teleop/
-python3 -m venv venv_teleop
-source venv_teleop/bin/activate
-pip install -r requirements_teleop.txt
-```
+### Install SideQuest on Ubuntu 20.04
+1. Enable **Developer Mode** on your Meta Quest device.
+2. Download **SideQuest Desktop App** from [SideQuestVR](https://sidequestvr.com/setup-howto):
+   ```bash
+   tar -xf SideQuest-0.10.42.tar.xz
+   chmod +x SideQuest-0.10.42/sidequest
+   ./SideQuest-0.10.42/sidequest --no-sandbox
+   ```
+3. In SideQuest, click **"Install APK from folder on your computer"**, then select `AllegroHandTeleoperation.apk`.
+4. On your Meta Quest, go to **Apps > Unknown Sources** to find and launch the installed application.
+5. **Ensure your device is connected to the correct network!**
+
+## 6.
 
 ### Start the Teleoperation
 1. **Ensure the Allegro Hand is connected and the driver is working.**
-2. Start the Allegro-Hand-Teleoperation app in Meta Quest, check the IP and otherwise just click continue everywhere, then press skip
-3. Activate the virtual environment:
+2. Activate the virtual environment:
    ```bash
    source ~/ros_ws/Allegro-Hand-Teleoperation/ik_teleop/venv_teleop/bin/activate
    ```
-4. Run the teleoperation script:
+3. Run the teleoperation script:
    ```bash
    python ~/ros_ws/Allegro-Hand-Teleoperation/start_teleop.py --ip=192.168.7.XXX
    ```
-5. **Press "START ALL"** in the interface.
+4. **Press "START ALL"** in the interface.
+5. Start the Allegro-Hand-Teleoperation app in Meta Quest, check the IP and otherwise just click continue everywhere, then press skip
+6. Teleoperate the hand!
 
 ---
 
