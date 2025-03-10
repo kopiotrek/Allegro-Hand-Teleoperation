@@ -2,11 +2,10 @@ ikpy
 numpy
 psutil
 PyYAML
-#rospy
 scipy
 Shapely
 rospkg
 opencv-python
 catkin-pkg
-wheel
 empy==3.3.4
+wheel

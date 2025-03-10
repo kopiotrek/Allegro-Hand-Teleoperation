@@ -119,8 +119,8 @@ source ~/.bashrc
 ```bash
 sudo apt install python3.8-venv python3-pip
 cd ~/ros_ws/Allegro-Hand-Teleoperation/ik_teleop/
-python3 -m venv env_teleop
-source env_teleop/bin/activate
+python3 -m venv venv_teleop
+source venv_teleop/bin/activate
 pip install -r requirements_teleop.txt
 ```
 
@@ -129,7 +129,7 @@ pip install -r requirements_teleop.txt
 2. Start the Allegro-Hand-Teleoperation app in Meta Quest, check the IP and otherwise just click continue everywhere, then press skip
 3. Activate the virtual environment:
    ```bash
-   source ~/ros_ws/Allegro-Hand-Teleoperation/ik_teleop/env_teleop/bin/activate
+   source ~/ros_ws/Allegro-Hand-Teleoperation/ik_teleop/venv_teleop/bin/activate
    ```
 4. Run the teleoperation script:
    ```bash
