@@ -139,7 +139,7 @@ To use Meta Quest for teleoperation, follow these steps:
    ```
 3. Run the teleoperation script:
    ```bash
-   python ~/ros_ws/Allegro-Hand-Teleoperation/start_teleop.py --ip=192.168.7.XXX
+   python ~/ros_ws/Allegro-Hand-Teleoperation/start_teleop.py --ip=<PC_IP>
    ```
 4. **Press "START ALL"** in the interface.
 5. Start the Allegro-Hand-Teleoperation app in Meta Quest, check the IP and otherwise just click continue everywhere, then press skip
