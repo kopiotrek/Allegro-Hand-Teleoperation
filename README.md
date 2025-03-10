@@ -18,7 +18,8 @@ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F42ED6FBAB17C654
 
 ### Clone this repository
 ```bash
-https://github.com/kopiotrek/Allegro-Hand-Teleoperation.git
+mkdir ~/ros_ws && cd ~/ros_ws
+git clone https://github.com/kopiotrek/Allegro-Hand-Teleoperation.git
 ```
 
 ### Add Environment Variables to `.bashrc`
