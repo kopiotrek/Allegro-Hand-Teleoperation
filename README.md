@@ -43,6 +43,7 @@ pip install -r requirements_teleop.txt
 
 ### Install Dependencies & Clone Repository
 ```bash
+cd ~/ros_ws
 git clone https://github.com/NYU-robot-learning/Allegro-Hand-Controller-DIME.git
 sudo apt-get install cmake gcc g++ libpopt-dev ros-noetic-libpcan
 ```
@@ -117,7 +118,7 @@ catkin_make
 
 To use Meta Quest for teleoperation, follow these steps:
 
-### Install SideQuest on Ubuntu 20.04
+### Install SideQuest
 1. Enable **Developer Mode** on your Meta Quest device.
 2. Download **SideQuest Desktop App** from [SideQuestVR](https://sidequestvr.com/setup-howto):
    ```bash
@@ -129,9 +130,8 @@ To use Meta Quest for teleoperation, follow these steps:
 4. On your Meta Quest, go to **Apps > Unknown Sources** to find and launch the installed application.
 5. **Ensure your device is connected to the correct network!**
 
-## 6.
+## 6. Starting the Teleoperation
 
-### Start the Teleoperation
 1. **Ensure the Allegro Hand is connected and the driver is working.**
 2. Activate the virtual environment:
    ```bash
