@@ -17,6 +17,9 @@ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F42ED6FBAB17C654
 ## 1. Install Allegro-Hand-Teleoperation
 
 ### Clone this repository
+```bash
+https://github.com/kopiotrek/Allegro-Hand-Teleoperation.git
+```
 
 ### Add Environment Variables to `.bashrc`
 ```bash
