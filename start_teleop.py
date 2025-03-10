@@ -17,6 +17,7 @@ ACTIVATE_ENV = "source ~/ros_ws/Allegro-Hand-Teleoperation/ik_teleop/venv_teleop
 
 # List of scripts
 scripts = {
+    "roscore": f"roscore",
     "Allegro Controller": f"python {SCRIPTS_DIR}/allegro_controller.py",
     "Index Controller": f"python {SCRIPTS_DIR}/index_controller.py",
     "Middle Controller": f"python {SCRIPTS_DIR}/middle_controller.py",
