@@ -156,4 +156,4 @@ To use Meta Quest for teleoperation, follow these steps:
 
 With this guide, you should be able to successfully set up and run Allegro Hand Teleoperation. 🚀
 
-[Example video:](https://dex-manip.github.io/videos/teleop_website.mp4)
+[Example video here](https://dex-manip.github.io/videos/teleop_website.mp4)
