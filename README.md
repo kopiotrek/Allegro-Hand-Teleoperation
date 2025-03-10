@@ -143,15 +143,14 @@ To use Meta Quest for teleoperation, follow these steps:
    ```
 4. **Press "START ALL"** in the interface.
 5. Start the Allegro-Hand-Teleoperation app in Meta Quest, check the IP and otherwise just click continue everywhere, then press skip
-6. Teleoperate the hand!
+6. **Teleoperate the hand!**
 
 ---
 
 ## Troubleshooting
 - If the **PCAN driver doesn't work after a reboot**, try reinstalling it using the steps in Section 3.
-- Ensure all dependencies are installed correctly.
 - Make sure the **Allegro Hand is connected and powered on** before running teleoperation.
-- Double-check that your **Meta Quest and PC are on the same network**.
+- Double-check that your **Meta Quest and PC are in the same network**.
 
 ---
 
