@@ -1,0 +1,82 @@
+# Gains for the Proportional-Derivative Joint Space Controller
+# included with the Allegro Hand ROS Package.
+# P and D gains for each of the 16 joints.
+
+gains_pd:
+# proportial
+ p:
+#  Index finger
+  j00: 2.0
+  j01: 3.0
+  j02: 2.3
+  j03: 1.8
+
+#  Middle finger
+  j10: 2.0
+  j11: 3.0
+  j12: 2.3
+  j13: 1.8
+
+#  Ring finger
+  j20: 2.0
+  j21: 3.0
+  j22: 2.3
+  j23: 1.8
+
+#  Thumb finger
+  j30: 4.0
+  j31: 1.7
+  j32: 1.9
+  j33: 1.3
+
+#derivative
+ d:
+ #  Index finger
+  j00: 0.1
+  j01: 0.15
+  j02: 0.12
+  j03: 0.13
+
+#  Middle finger
+  j10: 0.1
+  j11: 0.15
+  j12: 0.12
+  j13: 0.13
+  
+#  Ring finger
+  j20: 0.1
+  j21: 0.15
+  j22: 0.12
+  j23: 0.13
+  
+#  Thumb finger
+  j30: 0.15
+  j31: 0.14
+  j32: 0.12
+  j33: 0.11
+# #  Index finger
+#   j00: 0.1
+#   j01: 0.11
+#   j02: 0.12
+#   j03: 0.13
+
+# #  Middle finger
+#   j10: 0.1
+#   j11: 0.11
+#   j12: 0.12
+#   j13: 0.13
+  
+# #  Ring finger
+#   j20: 0.1
+#   j21: 0.11
+#   j22: 0.12
+#   j23: 0.13
+  
+# #  Thumb finger
+#   j30: 0.15
+#   j31: 0.14
+#   j32: 0.12
+#   j33: 0.11
+
+
+ 
